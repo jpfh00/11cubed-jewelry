@@ -123,6 +123,66 @@
     image: img(p.imageKey, 1200, 1500),
   }));
 
+  const PRODUCT_I18N_EN = {
+    r1: {
+      name: "Platinum Perpetual Tourbillon",
+      gems: "Swiss caliber · 72h reserve · Edition 01/08",
+    },
+    r2: {
+      name: "Rose Gold Minute Repeater",
+      gems: "Minute repeater · Skeleton · COSC certificate",
+    },
+    c1: {
+      name: "Constellation D-FL Necklace",
+      badge: "High Jewelry",
+      gems: "47 VVS1 diamonds · Platinum 950 · GIA",
+    },
+    c2: {
+      name: "Maille Royale 24k",
+      gems: "999.9 gold · 240g · Microscopic setting",
+    },
+    d1: {
+      gems: "Type IIa diamond · GIA certified",
+    },
+    d2: {
+      badge: "High Jewelry",
+      gems: "132 diamonds · Platinum · Ashoka cut",
+    },
+    e1: {
+      name: "Muzo Emerald 8.4ct",
+      badge: "Colombia · No oil",
+      gems: "Gübelin & GIA · 18k gold · One of a kind",
+    },
+    e2: {
+      name: "Imperial Green Parure",
+      badge: "Museum Collection",
+      gems: "Emeralds + D/VVS diamonds · Exclusive design",
+    },
+    a1: {
+      name: "VVS Emerald Chandelier",
+      badge: "High Jewelry",
+      gems: "Pear emeralds · Baguette diamonds · Platinum",
+    },
+    a2: {
+      gems: "E/VVS2 diamond pair · 18k white gold",
+    },
+    b1: {
+      name: "Triad Commission",
+      badge: "Custom design",
+      gems: "Diamond + emerald + gold · Private 11³ atelier",
+    },
+    b2: {
+      name: "Bespoke Skeleton Watch",
+      gems: "Commissioned movement · Engraving · 6–9 month delivery",
+    },
+  };
+
+  function localizeProduct(p) {
+    if (!isEn) return p;
+    const en = PRODUCT_I18N_EN[p.id];
+    return en ? { ...p, ...en } : p;
+  }
+
   const CATEGORY_LABELS = isEn
     ? {
         relojes: "High watchmaking",
@@ -173,11 +233,17 @@
 
     if (!panel || !fab) return;
 
-    const replies = [
-      "Podemos curar una selección privada según perfil de colección, rango y ocasión.",
-      "Nuestra mesa trabaja únicamente gemas certificadas y piezas de disponibilidad limitada.",
-      "Si lo prefieres, coordinamos una consulta privada para presentar opciones en detalle.",
-    ];
+    const replies = isEn
+      ? [
+          "We can curate a private selection based on collection profile, range, and occasion.",
+          "Our desk works exclusively with certified gems and limited-availability pieces.",
+          "If you prefer, we can arrange a private consultation to present options in detail.",
+        ]
+      : [
+          "Podemos curar una selección privada según perfil de colección, rango y ocasión.",
+          "Nuestra mesa trabaja únicamente gemas certificadas y piezas de disponibilidad limitada.",
+          "Si lo prefieres, coordinamos una consulta privada para presentar opciones en detalle.",
+        ];
 
     function openPanel() {
       panel.hidden = false;
@@ -461,7 +527,8 @@
     const grid = document.getElementById("productsGrid");
     if (!grid) return;
 
-    grid.innerHTML = PRODUCTS.map((p) => {
+    grid.innerHTML = PRODUCTS.map((raw) => {
+      const p = localizeProduct(raw);
       const hidden = filter !== "all" && p.category !== filter;
       const priceLabel =
         p.price > 0
@@ -537,7 +604,7 @@
     }
     const existing = cart.find((c) => c.id === id);
     if (existing) existing.qty += 1;
-    else cart.push({ ...product, qty: 1 });
+    else cart.push({ ...localizeProduct(product), qty: 1 });
     updateCartUI();
     openCart();
   }

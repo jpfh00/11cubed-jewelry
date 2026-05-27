@@ -4,6 +4,7 @@
 (function (global) {
   "use strict";
 
+  const isEn = document.documentElement.lang?.toLowerCase().startsWith("en");
   const prefersReduced =
     global.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
   const isMobile =
@@ -27,7 +28,7 @@
   let time = 0;
   let morphTween = null;
 
-  const DIAMOND_HERO_SCALE = 0.58;
+  const DIAMOND_HERO_SCALE = isMobile ? 0.64 : 0.58;
   const DIAMOND_STICKY_SCALE = 0.42;
   const POSE = { x: -0.14, y: 0.78, z: 0.08 };
 
@@ -227,7 +228,10 @@
     if (!container || container.classList.contains("is-sticky")) return;
     placeAtSlot(true);
     container.classList.add("is-sticky");
-    fab?.setAttribute("aria-label", "Abrir concierge 11³");
+    fab?.setAttribute(
+      "aria-label",
+      isEn ? "Open 11³ concierge" : "Abrir concierge 11³"
+    );
 
     if (global.gsap) {
       morphTween?.kill();
@@ -248,7 +252,12 @@
   function morphToHero() {
     if (!container || !container.classList.contains("is-sticky")) return;
     container.classList.remove("is-sticky");
-    fab?.setAttribute("aria-label", "Concierge 11³ — desplázate para fijar");
+    fab?.setAttribute(
+      "aria-label",
+      isEn
+        ? "11³ concierge — scroll to pin"
+        : "Concierge 11³ — desplázate para fijar"
+    );
 
     const r = getSlotRect();
     if (!r) return;

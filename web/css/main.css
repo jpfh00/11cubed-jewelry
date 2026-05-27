@@ -936,7 +936,7 @@ body.is-loaded {
       "diamond"
       "body"
       "actions";
-    grid-template-rows: auto minmax(220px, 36dvh) auto auto;
+    grid-template-rows: auto minmax(248px, 40dvh) auto auto;
     align-content: start;
     justify-items: stretch;
     align-items: stretch;
@@ -993,9 +993,9 @@ body.is-loaded {
     left: auto;
     top: auto;
     transform: none;
-    width: min(76vw, 300px);
-    height: min(34dvh, 300px);
-    margin: 0.35rem auto 0;
+    width: min(84vw, 332px);
+    height: min(38dvh, 332px);
+    margin: 0.25rem auto 0;
     justify-self: center;
     align-self: center;
   }
