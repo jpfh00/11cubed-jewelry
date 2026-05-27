@@ -62,7 +62,7 @@ Abre `http://localhost:3456`
 
 - Fuentes SVG: `web/assets/favicon.svg`, `og-card.svg`, `og-card-en.svg`
 - PNG/JPEG generados: `npm run generate-assets` dentro de `web/scripts`
-- Meta Open Graph en `index.html` / `index-en.html` (URL absoluta `https://elevencubed.shop/assets/og-image.jpg`)
+- Meta Open Graph en `index.html` (ES), `index-en.html` (EN), `index-fr.html` (FR)
 
 Imagen OG en la raíz del sitio (sin query string): `https://elevencubed.shop/og-image.jpg`
 

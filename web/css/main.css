@@ -264,6 +264,12 @@ body.is-loaded {
   margin-left: auto;
 }
 
+.nav__langs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
 .nav__lang {
   font-size: 0.68rem;
   letter-spacing: 0.18em;

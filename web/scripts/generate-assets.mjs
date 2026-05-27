@@ -68,6 +68,17 @@ await rasterize("og-card-en.svg", [
   },
 ]);
 
+await rasterize("og-card-fr.svg", [
+  {
+    file: "og-image-fr.jpg",
+    width: 1200,
+    height: 630,
+    format: "jpeg",
+    quality: 94,
+    alsoRoot: true,
+  },
+]);
+
 const icon32 = await readFile(join(assets, "favicon-32.png"));
 const icon16 = await readFile(join(assets, "favicon-16.png"));
 // Minimal multi-size ICO: use 32px as primary for broad support

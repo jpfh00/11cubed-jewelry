@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://elevencubed.shop/index-fr.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="11³" />
+  <meta property="og:url" content="https://elevencubed.shop/index-fr.html" />
+  <meta property="og:title" content="11³ — Haute joaillerie et création sur mesure" />
+  <meta property="og:description" content="Diamants certifiés GIA, émeraudes de musée, grandes complications et pièces sur commande." />
+  <meta property="og:image" content="https://elevencubed.shop/og-image-fr.jpg" />
+  <meta property="og:image:secure_url" content="https://elevencubed.shop/og-image-fr.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="11³ — Haute joaillerie, diamant facetté et marque" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="11³ — Haute joaillerie et création sur mesure" />
+  <meta name="twitter:description" content="Diamants certifiés GIA, émeraudes de musée, grandes complications et pièces sur commande." />
+  <meta name="twitter:image" content="https://elevencubed.shop/og-image-fr.jpg" />
+  <meta name="description" content="11³ — Haute joaillerie : diamants certifiés, émeraudes de musée, horlogerie de complication et créations sur mesure." />
+  <meta name="theme-color" content="#010102" />
+  <title>11³ — Haute joaillerie et création sur mesure</title>
+  <link rel="icon" href="assets/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=2" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Zen+Antique&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <canvas id="pageStarsCanvas" class="page-stars" aria-hidden="true"></canvas>
+
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <span class="preloader__mark brand-mark" aria-hidden="true"><span class="brand-mark__digits">11</span><span class="brand-mark__pow">³</span></span>
+      <div class="preloader__line"><span></span></div>
+      <p class="preloader__text">Entrée dans l'archive</p>
+    </div>
+  </div>
+
+  <!-- Custom cursor (desktop) -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <span class="cursor__dot"></span>
+    <span class="cursor__ring"></span>
+  </div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a href="#" class="nav__logo brand-mark" aria-label="11 cubed accueil"><span class="brand-mark__digits">11</span><span class="brand-mark__pow">³</span></a>
+    <div class="nav__right">
+      <nav class="nav__links" aria-label="Navigation principale">
+        <a href="#collections">Collections</a>
+        <a href="#pieces">Pièces</a>
+        <a href="#maison">Maison</a>
+      </nav>
+      <div class="nav__actions">
+      <button type="button" class="nav__cart" id="cartToggle" aria-label="Ouvrir le panier, 0 article">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 3H2"/></svg>
+        <span class="nav__cart-count" id="cartCount">0</span>
+      </button>
+      <button type="button" class="btn btn--ghost nav__cta" data-modal="consult">Consulter</button>
+      <button type="button" class="nav__menu-btn" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+      <div class="nav__langs">
+        <a href="index.html" class="nav__lang" hreflang="es" lang="es">ES</a>
+        <a href="index-en.html" class="nav__lang" hreflang="en" lang="en">EN</a>
+      </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav aria-label="Mobile">
+      <a href="#collections">Collections</a>
+      <a href="#pieces">Pièces</a>
+      <a href="#maison">Maison</a>
+      <button type="button" class="btn btn--gold" data-modal="consult">Consultation privée</button>
+    </nav>
+  </div>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="hero" aria-label="Présentation">
+      <div class="hero__diamond-slot" id="heroDiamondSlot" aria-hidden="true"></div>
+      <div class="hero__gradient" aria-hidden="true"></div>
+      <div class="hero__content">
+        <div class="hero__head reveal">
+          <p class="hero__eyebrow">Haute joaillerie certifiée · Manufacture d'auteur</p>
+          <h1 class="hero__title">
+            <span class="hero__title-line">Précision de corporation.</span>
+            <span class="hero__title-line hero__title-line--accent">Prestige de maison.</span>
+          </h1>
+        </div>
+        <p class="hero__sub reveal">Diamants certifiés GIA, émeraudes d'origine vérifiée et grandes complications suisses — pièces réservées aux collectionneurs et clients de la maison.</p>
+        <div class="hero__actions reveal">
+          <a href="#collections" class="btn btn--gold">Explorer l'archive</a>
+          <button type="button" class="btn btn--outline" data-modal="consult">Consultation privée</button>
+        </div>
+      </div>
+      <div class="hero__scroll" aria-hidden="true">
+        <span>Défiler</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+      <div class="hero__stats reveal" aria-label="Points forts de la maison">
+        <div><strong>GIA</strong><span>Certification gemmologique</span></div>
+        <div><strong>Haute</strong><span>Manufacture suisse</span></div>
+        <div><strong>Privé</strong><span>Sur rendez-vous</span></div>
+      </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="manifesto section" id="maison">
+      <div class="container manifesto__grid">
+        <div class="manifesto__label reveal">Manifeste</div>
+        <blockquote class="manifesto__quote reveal">
+          <p><span class="brand-inline"><span class="brand-inline__digits">11</span><span class="brand-inline__pow">³</span></span> pratique la haute joaillerie selon un standard inflexible : matières exceptionnelles, manufacture irréprochable, éditions strictement limitées.</p>
+          <p>Nous ne produisons pas en volume. Chaque pièce reflète la rigueur de la maison — en forme, en valeur et en prestige.</p>
+        </blockquote>
+        <div class="manifesto__aside reveal">
+          <p class="manifesto__caption">Haute joaillerie · Gemmes certifiées · Manufacture suisse</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal collections -->
+    <section class="collections" id="collections" aria-label="Collections">
+      <div class="collections__header container">
+        <h2 class="section-title reveal">L'archive</h2>
+        <p class="section-sub reveal">Cinq catégories. Un standard : l'excellence.</p>
+      </div>
+      <div class="collections__track-wrap" id="collectionsWrap">
+        <div class="collections__track" id="collectionsTrack">
+          <article class="collection-card" data-category="relojes">
+            <div class="collection-card__media">
+              <img src="assets/images/reloj-pave.png" alt="Montre pavée haute joaillerie sur velours" width="1400" height="1800" loading="lazy" decoding="async" />
+              <div class="collection-card__overlay"></div>
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-card__index">01</span>
+              <h3>Haute horlogerie</h3>
+              <p>Pièces à grande complication, traitées comme joyaux-objets, esthétique nocturne et exclusivité extrême.</p>
+              <a href="#pieces" class="collection-card__link" data-filter="relojes">Voir les pièces →</a>
+            </div>
+          </article>
+          <article class="collection-card" data-category="cadenas">
+            <div class="collection-card__media">
+              <img src="https://images.unsplash.com/photo-1705575518997-82a71bcc75a2?w=1400&q=90&auto=format&fit=crop" alt="Bracelet diamants platine, haute joaillerie" width="1400" height="1800" loading="lazy" decoding="async" />
+              <div class="collection-card__overlay"></div>
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-card__index">02</span>
+              <h3>Chaînes &amp; colliers</h3>
+              <p>Platine 950 et or 24k — pavé VVS et sertissages de précision microscopique.</p>
+              <a href="#pieces" class="collection-card__link" data-filter="cadenas">Voir les pièces →</a>
+            </div>
+          </article>
+          <article class="collection-card" data-category="diamantes">
+            <div class="collection-card__media">
+              <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=1400&q=90&auto=format&fit=crop" alt="Solitaire D IF platine, gros plan" width="1400" height="1800" loading="lazy" decoding="async" />
+              <div class="collection-card__overlay"></div>
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-card__index">03</span>
+              <h3>Diamants</h3>
+              <p>Type IIa, D/IF, Ashoka — certification GIA et traçabilité complète.</p>
+              <a href="#pieces" class="collection-card__link" data-filter="diamantes">Voir les pièces →</a>
+            </div>
+          </article>
+          <article class="collection-card" data-category="esmeraldas">
+            <div class="collection-card__media">
+              <img src="https://images.unsplash.com/photo-1613945409199-1b5527d31fe8?w=1400&q=90&auto=format&fit=crop" alt="Bague diamant et émeraude, haute joaillerie" width="1400" height="1800" loading="lazy" decoding="async" />
+              <div class="collection-card__overlay"></div>
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-card__index">04</span>
+              <h3>Émeraudes</h3>
+              <p>Muzo, sans huile, vert de musée — rapports Gübelin.</p>
+              <a href="#pieces" class="collection-card__link" data-filter="esmeraldas">Voir les pièces →</a>
+            </div>
+          </article>
+          <article class="collection-card" data-category="amedida">
+            <div class="collection-card__media">
+              <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=1400&q=90&auto=format&fit=crop" alt="Solitaire haute joaillerie — commande privée" width="1400" height="1800" loading="lazy" decoding="async" />
+              <div class="collection-card__overlay"></div>
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-card__index">05</span>
+              <h3>Sur mesure</h3>
+              <p>Commandes privées : votre histoire traduite en une pièce irremplaçable.</p>
+              <a href="#pieces" class="collection-card__link" data-filter="amedida">Lancer une commande →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="collections__progress container" aria-hidden="true">
+        <div class="collections__progress-bar" id="collectionsProgress"></div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products section" id="pieces" aria-label="Pièces phares">
+      <div class="container">
+        <div class="products__head">
+          <h2 class="section-title reveal">Haute joaillerie</h2>
+          <p class="products__intro reveal">Une sélection éditoriale de pièces de rang muséal.</p>
+          <div class="products__filters reveal" role="tablist" aria-label="Filtrer par catégorie">
+            <button type="button" class="filter-btn is-active" data-filter="all" role="tab" aria-selected="true">Toutes</button>
+            <button type="button" class="filter-btn" data-filter="relojes" role="tab">Horlogerie</button>
+            <button type="button" class="filter-btn" data-filter="cadenas" role="tab">Chaînes</button>
+            <button type="button" class="filter-btn" data-filter="diamantes" role="tab">Diamants</button>
+            <button type="button" class="filter-btn" data-filter="esmeraldas" role="tab">Émeraudes</button>
+            <button type="button" class="filter-btn" data-filter="aretes" role="tab">Boucles d'oreille</button>
+            <button type="button" class="filter-btn" data-filter="amedida" role="tab">Sur mesure</button>
+          </div>
+        </div>
+        <div class="products__grid" id="productsGrid"></div>
+      </div>
+    </section>
+
+    <!-- Materials -->
+    <section class="materials section" aria-label="Matières et savoir-faire">
+      <div class="container materials__grid">
+        <div class="materials__visual reveal">
+          <div class="materials__orb" aria-hidden="true"></div>
+          <div class="media-frame media-frame--portrait">
+            <img src="https://images.unsplash.com/photo-1721919850259-2a15f09caeb2?w=1400&h=1750&q=90&auto=format&fit=crop&crop=center" alt="Diamants de haute qualité sur fond noir" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div class="materials__copy">
+          <h2 class="section-title reveal">Matière<br />fondamentale</h2>
+          <ul class="materials__list reveal">
+            <li><span>Diamants</span><p>D/IF · Type IIa · Certification GIA · Taille Excellent.</p></li>
+            <li><span>Émeraudes</span><p>Origine Colombie · Sans huile · Rapport Gübelin.</p></li>
+            <li><span>Métaux nobles</span><p>Platine 950 · Or 24k et 18k · Poli miroir.</p></li>
+            <li><span>Horlogerie</span><p>Grande complication · Calibres suisses · Éditions numérotées.</p></li>
+            <li><span>Sur mesure</span><p>Atelier privé · Croquis, prototype et livraison white-glove.</p></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exclusivity -->
+    <section class="exclusivity section" aria-label="Exclusivité">
+      <div class="container exclusivity__inner reveal">
+        <p class="exclusivity__eyebrow">Édition limitée</p>
+        <h2 class="exclusivity__title">Maximum <em>trois pièces</em><br />par design.</h2>
+        <p class="exclusivity__text">Lorsque la dernière pièce est livrée, le design est retiré de l'archive.</p>
+        <div class="exclusivity__counter" aria-live="polite">
+          <span class="exclusivity__counter-num" id="editionCounter">01</span>
+          <span class="exclusivity__counter-label">disponible · Parure Vert Impérial</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section section" aria-label="Consultation">
+      <div class="container cta-section__box reveal">
+        <h2>Réserver une consultation privée</h2>
+        <p>Un conseiller de la maison traitera votre demande en toute discrétion.</p>
+        <button type="button" class="btn btn--gold btn--lg" data-modal="consult">Consultation privée</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <span class="footer__logo brand-mark"><span class="brand-mark__digits">11</span><span class="brand-mark__pow">³</span></span>
+        <p>Haute joaillerie · Diamants · Émeraudes · Horlogerie · Création sur mesure</p>
+      </div>
+      <div class="footer__links">
+        <a href="#collections">Collections</a>
+        <a href="#pieces">Pièces</a>
+        <a href="#" data-modal="consult">Contact</a>
+      </div>
+      <p class="footer__copy">© 2026 11³. MVP — Imagerie de référence éditoriale.</p>
+    </div>
+  </footer>
+
+  <!-- Cart drawer -->
+  <aside class="drawer" id="cartDrawer" aria-label="Panier" aria-hidden="true">
+    <div class="drawer__backdrop" id="cartBackdrop"></div>
+    <div class="drawer__panel">
+      <header class="drawer__head">
+        <h2>Votre sélection</h2>
+        <button type="button" class="drawer__close" id="cartClose" aria-label="Fermer le panier">×</button>
+      </header>
+      <ul class="drawer__items" id="cartItems"></ul>
+      <footer class="drawer__foot">
+        <p class="drawer__total">Total estimé : <strong id="cartTotal">$0</strong></p>
+        <button type="button" class="btn btn--gold btn--full" data-modal="consult">Finaliser la consultation</button>
+      </footer>
+    </div>
+  </aside>
+
+  <!-- Modal -->
+  <dialog class="modal" id="consultModal" aria-labelledby="modalTitle">
+    <div class="modal__box">
+      <div class="modal__ornament" aria-hidden="true"></div>
+      <button type="button" class="modal__close" id="modalClose" aria-label="Fermer">×</button>
+      <h2 id="modalTitle">Consultation privée</h2>
+      <p>Indiquez votre intérêt. Un conseiller de la maison vous contactera sous peu.</p>
+      <form class="modal__form" id="consultForm">
+        <label>
+          <span>Nom</span>
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+        <label>
+          <span>E-mail</span>
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+        <label>
+          <span>Intérêt</span>
+          <select name="interest">
+            <option value="diamantes">Diamants certifiés</option>
+            <option value="esmeraldas">Émeraudes de musée</option>
+            <option value="relojes">Haute horlogerie</option>
+            <option value="cadenas">Chaînes &amp; colliers</option>
+            <option value="aretes">Boucles d'oreille de gala</option>
+            <option value="amedida">Création sur mesure</option>
+          </select>
+        </label>
+        <label>
+          <span>Message</span>
+          <textarea name="message" rows="3" placeholder="Référence de pièce, occasion ou préférences…"></textarea>
+        </label>
+        <button type="submit" class="btn btn--gold btn--full">Envoyer la demande</button>
+      </form>
+      <p class="modal__success" id="formSuccess" hidden>Merci. Nous avons bien reçu votre demande. Un conseiller vous contactera prochainement.</p>
+    </div>
+  </dialog>
+
+  <!-- Diamante hero → chatbot sticky -->
+  <div class="hero__diamond" id="heroDiamond">
+    <button type="button" class="chatbot-fab" id="chatbotFab" aria-label="Concierge 11³" aria-expanded="false" aria-controls="chatbotPanel">
+      <span class="hero__diamond-glow" aria-hidden="true"></span>
+      <canvas id="heroDiamondCanvas" aria-hidden="true"></canvas>
+      <span class="chatbot-fab__ring" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <aside class="chatbot-panel" id="chatbotPanel" aria-labelledby="chatbotTitle" hidden>
+    <header class="chatbot-panel__head">
+      <div>
+        <p class="chatbot-panel__eyebrow">Concierge</p>
+        <h2 id="chatbotTitle" class="brand-mark"><span class="brand-mark__digits">11</span><span class="brand-mark__pow">³</span></h2>
+      </div>
+      <button type="button" class="chatbot-panel__close" id="chatbotClose" aria-label="Fermer le chat">×</button>
+    </header>
+    <div class="chatbot-panel__body" id="chatbotMessages">
+      <p class="chatbot-panel__bubble chatbot-panel__bubble--bot">Bienvenue. Partagez votre intérêt et un concierge 11³ préparera une sélection privée pour vous.</p>
+    </div>
+    <form class="chatbot-panel__form" id="chatbotForm">
+      <input type="text" name="msg" placeholder="Écrivez votre demande…" autocomplete="off" required />
+      <button type="submit" class="btn btn--gold">Envoyer</button>
+    </form>
+    <button type="button" class="chatbot-panel__cta btn btn--outline" id="chatbotConsult">Consultation privée</button>
+  </aside>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/images.js"></script>
+  <script src="js/page-stars.js"></script>
+  <script src="js/hero-diamond.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

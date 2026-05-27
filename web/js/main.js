@@ -6,7 +6,62 @@
 
   const { img, hq, fallback } = window.IMAGES_11C;
   const fallbackSrc = hq(fallback);
-  const isEn = document.documentElement.lang?.toLowerCase().startsWith("en");
+  const locale = (() => {
+    const l = document.documentElement.lang?.toLowerCase().slice(0, 2);
+    return l === "en" || l === "fr" ? l : "es";
+  })();
+
+  const COPY = {
+    es: {
+      priceOnRequest: "Bajo consulta",
+      priceFrom: "Desde",
+      select: "Seleccionar",
+      consult: "Consultar",
+      requestDesign: "Solicitar diseño",
+      piecesId: "piezas",
+      cartAria: (n) => `Abrir bolsa, ${n} artículos`,
+      cartEmpty: "Tu bolsa está vacía.",
+      numberLocale: "es-MX",
+      chatbotReplies: [
+        "Podemos curar una selección privada según perfil de colección, rango y ocasión.",
+        "Nuestra mesa trabaja únicamente gemas certificadas y piezas de disponibilidad limitada.",
+        "Si lo prefieres, coordinamos una consulta privada para presentar opciones en detalle.",
+      ],
+    },
+    en: {
+      priceOnRequest: "Upon request",
+      priceFrom: "From",
+      select: "Select",
+      consult: "Consult",
+      requestDesign: "Request design",
+      piecesId: "pieces",
+      cartAria: (n) => `Open bag, ${n} items`,
+      cartEmpty: "Your bag is empty.",
+      numberLocale: "en-US",
+      chatbotReplies: [
+        "We can curate a private selection based on collection profile, range, and occasion.",
+        "Our desk works exclusively with certified gems and limited-availability pieces.",
+        "If you prefer, we can arrange a private consultation to present options in detail.",
+      ],
+    },
+    fr: {
+      priceOnRequest: "Sur demande",
+      priceFrom: "À partir de",
+      select: "Sélectionner",
+      consult: "Consulter",
+      requestDesign: "Demander un modèle",
+      piecesId: "pieces",
+      cartAria: (n) => `Ouvrir le panier, ${n} article${n === 1 ? "" : "s"}`,
+      cartEmpty: "Votre panier est vide.",
+      numberLocale: "fr-FR",
+      chatbotReplies: [
+        "Nous pouvons composer une sélection privée selon votre profil de collection, budget et occasion.",
+        "Notre desk ne travaille qu'avec des gemmes certifiées et des pièces en disponibilité limitée.",
+        "Si vous le souhaitez, nous organisons une consultation privée pour présenter les options en détail.",
+      ],
+    },
+  };
+  const T = COPY[locale];
 
   const PRODUCTS = [
     {
@@ -123,7 +178,8 @@
     image: img(p.imageKey, 1200, 1500),
   }));
 
-  const PRODUCT_I18N_EN = {
+  const PRODUCT_I18N = {
+    en: {
     r1: {
       name: "Platinum Perpetual Tourbillon",
       gems: "Swiss caliber · 72h reserve · Edition 01/08",
@@ -175,31 +231,94 @@
       name: "Bespoke Skeleton Watch",
       gems: "Commissioned movement · Engraving · 6–9 month delivery",
     },
+    },
+    fr: {
+      r1: {
+        name: "Tourbillon perpétuel platine",
+        gems: "Calibre suisse · Réserve 72 h · Édition 01/08",
+      },
+      r2: {
+        name: "Minute répétition or rose",
+        gems: "Répétition minutes · Squelette · Certificat COSC",
+      },
+      c1: {
+        name: "Collier Constellation D-FL",
+        badge: "Haute joaillerie",
+        gems: "47 diamants VVS1 · Platine 950 · GIA",
+      },
+      c2: {
+        name: "Maille Royale 24k",
+        gems: "Or 999,9 · 240 g · Sertissage microscopique",
+      },
+      d1: {
+        gems: "Diamant Type IIa · Certifié GIA",
+      },
+      d2: {
+        badge: "Haute joaillerie",
+        gems: "132 diamants · Platine · Taille Ashoka",
+      },
+      e1: {
+        name: "Émeraude Muzo 8,4 ct",
+        badge: "Colombie · Sans huile",
+        gems: "Gübelin & GIA · Or 18k · Pièce unique",
+      },
+      e2: {
+        name: "Parure Vert Impérial",
+        badge: "Collection musée",
+        gems: "Émeraudes + diamants D/VVS · Design exclusif",
+      },
+      a1: {
+        name: "Chandelier VVS émeraude",
+        badge: "Haute joaillerie",
+        gems: "Émeraudes poire · Diamants baguette · Platine",
+      },
+      a2: {
+        gems: "Paire diamants E/VVS2 · Or blanc 18k",
+      },
+      b1: {
+        name: "Commission Triade",
+        badge: "Design sur mesure",
+        gems: "Diamant + émeraude + or · Atelier privé 11³",
+      },
+      b2: {
+        name: "Montre squelette sur mesure",
+        gems: "Mouvement commande spéciale · Gravure · Livraison 6–9 mois",
+      },
+    },
   };
 
   function localizeProduct(p) {
-    if (!isEn) return p;
-    const en = PRODUCT_I18N_EN[p.id];
-    return en ? { ...p, ...en } : p;
+    if (locale === "es") return p;
+    const row = PRODUCT_I18N[locale]?.[p.id];
+    return row ? { ...p, ...row } : p;
   }
 
-  const CATEGORY_LABELS = isEn
-    ? {
-        relojes: "High watchmaking",
-        cadenas: "High jewelry",
-        diamantes: "Certified diamonds",
-        esmeraldas: "Museum emeralds",
-        aretes: "Gala earrings",
-        amedida: "Bespoke design",
-      }
-    : {
-        relojes: "Alta relojería",
-        cadenas: "Alta joyería",
-        diamantes: "Diamantes certificados",
-        esmeraldas: "Esmeraldas de museo",
-        aretes: "Aretes de gala",
-        amedida: "Diseño a medida",
-      };
+  const CATEGORY_LABELS = {
+    es: {
+      relojes: "Alta relojería",
+      cadenas: "Alta joyería",
+      diamantes: "Diamantes certificados",
+      esmeraldas: "Esmeraldas de museo",
+      aretes: "Aretes de gala",
+      amedida: "Diseño a medida",
+    },
+    en: {
+      relojes: "High watchmaking",
+      cadenas: "High jewelry",
+      diamantes: "Certified diamonds",
+      esmeraldas: "Museum emeralds",
+      aretes: "Gala earrings",
+      amedida: "Bespoke design",
+    },
+    fr: {
+      relojes: "Haute horlogerie",
+      cadenas: "Haute joaillerie",
+      diamantes: "Diamants certifiés",
+      esmeraldas: "Émeraudes de musée",
+      aretes: "Boucles d'oreille de gala",
+      amedida: "Création sur mesure",
+    },
+  }[locale];
 
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -233,17 +352,7 @@
 
     if (!panel || !fab) return;
 
-    const replies = isEn
-      ? [
-          "We can curate a private selection based on collection profile, range, and occasion.",
-          "Our desk works exclusively with certified gems and limited-availability pieces.",
-          "If you prefer, we can arrange a private consultation to present options in detail.",
-        ]
-      : [
-          "Podemos curar una selección privada según perfil de colección, rango y ocasión.",
-          "Nuestra mesa trabaja únicamente gemas certificadas y piezas de disponibilidad limitada.",
-          "Si lo prefieres, coordinamos una consulta privada para presentar opciones en detalle.",
-        ];
+    const replies = T.chatbotReplies;
 
     function openPanel() {
       panel.hidden = false;
@@ -515,8 +624,8 @@
 
   // ——— Products ———
   function formatPrice(n) {
-    if (!n || n <= 0) return isEn ? "Upon request" : "Bajo consulta";
-    return new Intl.NumberFormat(isEn ? "en-US" : "es-MX", {
+    if (!n || n <= 0) return T.priceOnRequest;
+    return new Intl.NumberFormat(T.numberLocale, {
       style: "currency",
       currency: "USD",
       maximumFractionDigits: 0,
@@ -532,7 +641,7 @@
       const hidden = filter !== "all" && p.category !== filter;
       const priceLabel =
         p.price > 0
-          ? `${isEn ? "From" : "Desde"} ${formatPrice(p.price)}`
+          ? `${T.priceFrom} ${formatPrice(p.price)}`
           : formatPrice(0);
       const canAdd = p.price > 0;
       const imgWrapClass = p.animated ? " product-card__img-wrap--render" : "";
@@ -549,8 +658,8 @@
             <p class="product-card__gems">${p.gems}</p>
             <p class="product-card__price">${priceLabel}</p>
             <div class="product-card__actions">
-              ${canAdd ? `<button type="button" class="btn btn--outline" data-add="${p.id}">${isEn ? "Select" : "Seleccionar"}</button>` : ""}
-              <button type="button" class="btn btn--gold" data-modal="consult">${canAdd ? (isEn ? "Consult" : "Consultar") : (isEn ? "Request design" : "Solicitar diseño")}</button>
+              ${canAdd ? `<button type="button" class="btn btn--outline" data-add="${p.id}">${T.select}</button>` : ""}
+              <button type="button" class="btn btn--gold" data-modal="consult">${canAdd ? T.consult : T.requestDesign}</button>
             </div>
           </div>
         </article>`;
@@ -587,7 +696,7 @@
           const f = link.dataset.filter;
           const btn = document.querySelector(`.filter-btn[data-filter="${f}"]`);
           btn?.click();
-          const piecesId = isEn ? "pieces" : "piezas";
+          const piecesId = T.piecesId;
           document.getElementById(piecesId)?.scrollIntoView({ behavior: "smooth" });
         });
       }
@@ -622,9 +731,7 @@
     if (toggle) {
       toggle.setAttribute(
         "aria-label",
-        isEn
-          ? `Open bag, ${totalQty} items`
-          : `Abrir bolsa, ${totalQty} artículos`
+        T.cartAria(totalQty)
       );
     }
 
@@ -632,7 +739,7 @@
 
     if (cart.length === 0) {
       itemsEl.innerHTML = `<li class="drawer__empty">${
-        isEn ? "Your bag is empty." : "Tu bolsa está vacía."
+        T.cartEmpty
       }</li>`;
     } else {
       itemsEl.innerHTML = cart

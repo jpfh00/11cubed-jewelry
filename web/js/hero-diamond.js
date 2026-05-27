@@ -4,7 +4,9 @@
 (function (global) {
   "use strict";
 
-  const isEn = document.documentElement.lang?.toLowerCase().startsWith("en");
+  const lang = document.documentElement.lang?.toLowerCase().slice(0, 2);
+  const isEn = lang === "en";
+  const isFr = lang === "fr";
   const prefersReduced =
     global.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
   const isMobile =
@@ -230,7 +232,11 @@
     container.classList.add("is-sticky");
     fab?.setAttribute(
       "aria-label",
-      isEn ? "Open 11³ concierge" : "Abrir concierge 11³"
+      isFr
+        ? "Ouvrir le concierge 11³"
+        : isEn
+          ? "Open 11³ concierge"
+          : "Abrir concierge 11³"
     );
 
     if (global.gsap) {
@@ -254,9 +260,11 @@
     container.classList.remove("is-sticky");
     fab?.setAttribute(
       "aria-label",
-      isEn
-        ? "11³ concierge — scroll to pin"
-        : "Concierge 11³ — desplázate para fijar"
+      isFr
+        ? "Concierge 11³ — faites défiler pour épingler"
+        : isEn
+          ? "11³ concierge — scroll to pin"
+          : "Concierge 11³ — desplázate para fijar"
     );
 
     const r = getSlotRect();
