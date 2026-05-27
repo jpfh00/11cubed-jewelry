@@ -17,22 +17,23 @@ git push -u origin main
 
 ## 2. Vercel (una vez)
 
-Opción A — CLI:
+**Importante:** si importas desde GitHub, deja **Root Directory vacío** (`.`).  
+El `vercel.json` en la raíz del repo ya apunta a `web/` como sitio.
+
+Opción A — Dashboard:
+
+1. [vercel.com/new](https://vercel.com/new) → Import `11cubed-jewelry`
+2. **Root Directory:** vacío (no pongas `web` si ya usas el `vercel.json` raíz)
+3. Framework Preset: **Other**
+4. Deploy
+
+Opción B — CLI:
 
 ```powershell
-cd web
+cd "C:\Users\jeanp\Desktop\Projects\11³"
 npx vercel login
-npx vercel link
 npx vercel --prod
 ```
-
-Opción B — Dashboard:
-
-1. [vercel.com/new](https://vercel.com/new) → Import Git Repository
-2. Selecciona `11cubed-jewelry`
-3. **Root Directory:** `web`
-4. Framework Preset: **Other**
-5. Deploy
 
 ## Local
 
