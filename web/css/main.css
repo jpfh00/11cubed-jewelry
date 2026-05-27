@@ -950,6 +950,13 @@ body.is-loaded {
     display: contents;
   }
 
+  .hero__head,
+  .hero__sub,
+  .hero__actions {
+    position: relative;
+    z-index: 3;
+  }
+
   .hero__head {
     grid-area: head;
     padding-bottom: 0.25rem;
@@ -998,12 +1005,14 @@ body.is-loaded {
     margin: 0.25rem auto 0;
     justify-self: center;
     align-self: center;
+    z-index: 2;
   }
 
   .hero__gradient {
+    z-index: 0;
     background:
       radial-gradient(ellipse 85% 42% at 50% 46%, rgba(181, 201, 232, 0.14), transparent 68%),
-      linear-gradient(180deg, transparent 20%, var(--void) 100%);
+      linear-gradient(180deg, transparent 58%, rgba(1, 1, 2, 0.55) 90%, var(--void) 100%);
   }
 }
 
