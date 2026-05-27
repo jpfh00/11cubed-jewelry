@@ -620,6 +620,7 @@ body.is-loaded {
   transition: opacity 1.2s var(--ease-out);
   -webkit-tap-highlight-color: transparent;
   tap-highlight-color: transparent;
+  contain: layout style;
 }
 
 .hero__diamond.is-ready,
@@ -911,6 +912,85 @@ body.is-loaded {
   width: calc(100% - 2rem);
 }
 
+@media (max-width: 899px) {
+  .hero {
+    display: grid;
+    grid-template-areas:
+      "head"
+      "diamond"
+      "body"
+      "actions";
+    grid-template-rows: auto minmax(220px, 36dvh) auto auto;
+    align-content: start;
+    justify-items: stretch;
+    align-items: stretch;
+    gap: 0;
+    padding: calc(var(--nav-h) + 1.35rem) 1.35rem 2rem;
+    min-height: 100dvh;
+    min-height: 100svh;
+  }
+
+  .hero__content {
+    display: contents;
+  }
+
+  .hero__head {
+    grid-area: head;
+    padding-bottom: 0.25rem;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 0.9rem;
+    letter-spacing: 0.22em;
+    font-size: 0.62rem;
+  }
+
+  .hero__title {
+    margin-bottom: 0;
+    font-size: clamp(1.9rem, 8.2vw, 2.7rem);
+    line-height: 1.02;
+  }
+
+  .hero__sub {
+    grid-area: body;
+    margin: 1.15rem 0 1.35rem;
+    max-width: none;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    text-align: left;
+  }
+
+  .hero__actions {
+    grid-area: actions;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__diamond-slot {
+    grid-area: diamond;
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: min(76vw, 300px);
+    height: min(34dvh, 300px);
+    margin: 0.35rem auto 0;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .hero__gradient {
+    background:
+      radial-gradient(ellipse 85% 42% at 50% 46%, rgba(181, 201, 232, 0.14), transparent 68%),
+      linear-gradient(180deg, transparent 20%, var(--void) 100%);
+  }
+}
+
 @media (min-width: 900px) {
   .hero__diamond-slot {
     top: clamp(4.5rem, 13vh, 7.5rem);
@@ -923,6 +1003,10 @@ body.is-loaded {
   position: relative;
   z-index: 3;
   max-width: 900px;
+}
+
+.hero__head {
+  margin-bottom: 0;
 }
 
 .hero__eyebrow {

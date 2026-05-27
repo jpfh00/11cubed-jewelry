@@ -130,12 +130,29 @@
     scene.add(sparkleLight);
   }
 
-  function getSlotRect() {
-    return slot?.getBoundingClientRect() || hero?.getBoundingClientRect();
+  let cachedSlotRect = null;
+  let cachedSlotRectAt = 0;
+
+  function getSlotRect(force) {
+    const now = performance.now();
+    if (
+      force ||
+      !cachedSlotRect ||
+      now - cachedSlotRectAt > (isMobile ? 48 : 16)
+    ) {
+      cachedSlotRect =
+        slot?.getBoundingClientRect() || hero?.getBoundingClientRect();
+      cachedSlotRectAt = now;
+    }
+    return cachedSlotRect;
+  }
+
+  function invalidateSlotRect() {
+    cachedSlotRect = null;
   }
 
   function placeAtSlot(instant) {
-    const r = getSlotRect();
+    const r = getSlotRect(true);
     if (!r || !container) return;
     const props = {
       position: "fixed",
@@ -170,6 +187,7 @@
   function applyMorphPosition(t) {
     if (!container) return;
     const r = getSlotRect();
+    if (!r) return;
     if (!r) return;
     const startTop = r.top;
     const startLeft = r.left;
@@ -252,47 +270,29 @@
 
     global.gsap.registerPlugin(global.ScrollTrigger);
 
+    const morphStart = isMobile ? 0.06 : 0.12;
+    const morphSpan = isMobile ? 0.52 : 0.45;
+
     global.ScrollTrigger.create({
       trigger: "#hero",
       start: "top top",
       end: "bottom top",
+      scrub: isMobile ? 0.85 : 0.65,
       onUpdate: (self) => {
         scrollProgress = self.progress;
+        stickyT = Math.min(
+          1,
+          Math.max(0, (self.progress - morphStart) / morphSpan)
+        );
+        applyMorphPosition(stickyT);
+        container.classList.toggle("is-sticky", stickyT > 0.88);
       },
     });
-
-    if (isMobile) {
-      global.ScrollTrigger.create({
-        trigger: "#hero",
-        start: "42% top",
-        onEnter: () => {
-          stickyT = 1;
-          container.classList.add("is-sticky");
-          applyMorphPosition(1);
-        },
-        onLeaveBack: () => {
-          stickyT = 0;
-          container.classList.remove("is-sticky");
-          placeAtSlot(true);
-        },
-      });
-    } else {
-      global.ScrollTrigger.create({
-        trigger: "#hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 0.65,
-        onUpdate: (self) => {
-          stickyT = Math.min(1, Math.max(0, (self.progress - 0.12) / 0.45));
-          applyMorphPosition(stickyT);
-          container.classList.toggle("is-sticky", stickyT > 0.86);
-        },
-      });
-    }
 
     global.addEventListener(
       "resize",
       () => {
+        invalidateSlotRect();
         if (stickyT >= 1 && container?.classList.contains("is-sticky")) {
           applyMorphPosition(1);
         } else {
@@ -361,9 +361,9 @@
     hoverIntensity += (hoverTarget - hoverIntensity) * 0.08;
     const sticky = container?.classList.contains("is-sticky");
     const energy = isMobile
-      ? 1 + scrollProgress * 0.12
+      ? 1 + scrollProgress * 0.2
       : 1 + hoverIntensity * 0.5 + scrollProgress * 0.25;
-    orbit += (isMobile ? 0.006 : 0.0095 + hoverIntensity * 0.008) * energy;
+    orbit += (isMobile ? 0.008 : 0.0095 + hoverIntensity * 0.008) * energy;
 
     const lerpSpeed = 0.05 + hoverIntensity * 0.07;
     pointer.x += (pointer.tx - pointer.x) * lerpSpeed;
@@ -460,6 +460,10 @@
 
     placeAtSlot(true);
     resizeRenderer();
+
+    if (isMobile) {
+      container.style.willChange = "top, left, width, height";
+    }
 
     container.classList.add("is-ready");
     animate();
