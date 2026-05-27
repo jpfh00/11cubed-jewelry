@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="11³">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="52%">
+      <stop offset="0%" stop-color="#7ee8e2" stop-opacity="0.42"/>
+      <stop offset="55%" stop-color="#4db8b2" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#010102" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="crown-l" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#d8e4f4"/>
+    </linearGradient>
+    <linearGradient id="crown-r" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#c5d2e6"/>
+    </linearGradient>
+    <linearGradient id="pav-l" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6edf8"/>
+      <stop offset="100%" stop-color="#9eb0c8"/>
+    </linearGradient>
+    <linearGradient id="pav-r" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#dfe8f6"/>
+      <stop offset="100%" stop-color="#8fa3bc"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" fill="#010102"/>
+  <ellipse cx="16" cy="14" rx="11" ry="10" fill="url(#glow)"/>
+  <!-- Pavilion -->
+  <polygon fill="url(#pav-l)" points="16,13.2 7.5,14.2 16,25.5"/>
+  <polygon fill="url(#pav-r)" points="16,13.2 24.5,14.2 16,25.5"/>
+  <!-- Crown -->
+  <polygon fill="url(#crown-l)" points="16,6.5 7.5,14.2 16,13.2"/>
+  <polygon fill="url(#crown-r)" points="16,6.5 24.5,14.2 16,13.2"/>
+  <!-- Table -->
+  <polygon fill="#ffffff" points="16,6.5 20.2,10.8 16,13.2 11.8,10.8"/>
+  <!-- Facet edges (hero-style) -->
+  <g fill="none" stroke="#e8f2fc" stroke-width="0.55" stroke-linejoin="round" opacity="0.72">
+    <path d="M16 6.5 L7.5 14.2 M16 6.5 L24.5 14.2 M16 13.2 L16 25.5"/>
+    <path d="M11.8 10.8 L20.2 10.8 M16 6.5 L16 13.2"/>
+    <path d="M7.5 14.2 L24.5 14.2"/>
+    <path d="M11.8 10.8 L16 13.2 L20.2 10.8"/>
+  </g>
+</svg>
