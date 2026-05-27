@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="11³">
   <defs>
     <radialGradient id="glow" cx="50%" cy="42%" r="52%">
-      <stop offset="0%" stop-color="#7ee8e2" stop-opacity="0.42"/>
-      <stop offset="55%" stop-color="#4db8b2" stop-opacity="0.12"/>
+      <stop offset="0%" stop-color="#4ecf96" stop-opacity="0.42"/>
+      <stop offset="55%" stop-color="#1a8f5c" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#010102" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="crown-l" x1="0%" y1="0%" x2="100%" y2="100%">

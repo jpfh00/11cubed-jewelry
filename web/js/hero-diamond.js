@@ -124,7 +124,7 @@
     rim.position.set(-4.6, 1.6, -3);
     scene.add(rim);
 
-    const back = new THREE.PointLight(0xbfd8ff, 0.68, 14);
+    const back = new THREE.PointLight(0x6fd4a8, 0.68, 14);
     back.position.set(0, -1, -4);
     scene.add(back);
 
