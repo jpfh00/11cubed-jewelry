@@ -15,27 +15,35 @@ const VOID = { r: 1, g: 1, b: 2, alpha: 1 };
 const EMERALD = "#4ecf96";
 const GOLD = "#c9a962";
 
-/** White diamond on transparent (from black-on-white source) */
+const RESIZE = {
+  kernel: sharp.kernel.lanczos3,
+  fit: "contain",
+};
+
+const TRANSPARENT = { r: 0, g: 0, b: 0, alpha: 0 };
+
+/** White diamond on transparent — master 1024px for clean downscales */
 async function diamondForDarkBg() {
   const { data, info } = await sharp(sourceIcon)
+    .resize(1024, 1024, {
+      ...RESIZE,
+      background: { r: 255, g: 255, b: 255, alpha: 1 },
+    })
     .ensureAlpha()
     .raw()
     .toBuffer({ resolveWithObject: true });
 
   const px = data;
   for (let i = 0; i < px.length; i += 4) {
-    const r = px[i];
-    const g = px[i + 1];
-    const b = px[i + 2];
-    const lum = (r + g + b) / 3;
-    if (lum > 240) {
+    const lum = (px[i] + px[i + 1] + px[i + 2]) / 3;
+    if (lum > 235) {
       px[i + 3] = 0;
     } else {
-      const ink = 255 - lum;
+      const a = Math.min(255, Math.round((255 - lum) * 1.08));
       px[i] = 255;
       px[i + 1] = 255;
       px[i + 2] = 255;
-      px[i + 3] = Math.min(255, Math.round(ink * 1.15));
+      px[i + 3] = a;
     }
   }
 
@@ -44,40 +52,81 @@ async function diamondForDarkBg() {
   }).png();
 }
 
+/** 4× supersample then downscale — sharper at 16–48px */
+async function iconAtSize(diamondPng, innerPx) {
+  const ss = Math.max(innerPx * 4, 64);
+  return diamondPng
+    .clone()
+    .resize(ss, ss, { ...RESIZE, background: TRANSPARENT })
+    .resize(innerPx, innerPx, RESIZE)
+    .png()
+    .toBuffer();
+}
+
 async function writeFavicons(diamondPng) {
   const sizes = [
-    { file: "favicon-16.png", w: 16 },
-    { file: "favicon-32.png", w: 32 },
-    { file: "favicon-48.png", w: 48 },
-    { file: "apple-touch-icon.png", w: 180 },
+    { file: "favicon-16.png", w: 16, pad: 0.12 },
+    { file: "favicon-32.png", w: 32, pad: 0.14 },
+    { file: "favicon-48.png", w: 48, pad: 0.14 },
+    { file: "favicon-64.png", w: 64, pad: 0.14 },
+    { file: "apple-touch-icon.png", w: 180, pad: 0.16 },
   ];
 
-  for (const { file, w } of sizes) {
-    const pad = Math.round(w * 0.18);
-    const inner = w - pad * 2;
-    const icon = await diamondPng
-      .clone()
-      .resize(inner, inner, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .toBuffer();
+  const pngBuffers = [];
 
-    await sharp({
-      create: {
-        width: w,
-        height: w,
-        channels: 4,
-        background: VOID,
-      },
+  for (const { file, w, pad: padRatio } of sizes) {
+    const pad = Math.round(w * padRatio);
+    const inner = w - pad * 2;
+    const icon = await iconAtSize(diamondPng, inner);
+
+    const out = await sharp({
+      create: { width: w, height: w, channels: 4, background: VOID },
     })
       .composite([{ input: icon, gravity: "centre" }])
-      .png()
-      .toFile(join(assets, file));
+      .png({ compressionLevel: 9, adaptiveFiltering: true })
+      .toBuffer();
 
+    await writeFile(join(assets, file), out);
     console.log(`✓ assets/${file}`);
+    if (w <= 48) pngBuffers.push({ w, buf: out });
   }
 
-  const icon32 = await readFile(join(assets, "favicon-32.png"));
-  await writeFile(join(assets, "favicon.ico"), icon32);
-  console.log("✓ assets/favicon.ico");
+  await writeFile(join(assets, "favicon.ico"), buildIco(pngBuffers));
+  console.log("✓ assets/favicon.ico (16+32+48)");
+}
+
+/** Minimal ICO: 16, 32, 48 PNG entries */
+function buildIco(entries) {
+  const sorted = [...entries].sort((a, b) => a.w - b.w);
+  const count = sorted.length;
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0);
+  header.writeUInt16LE(1, 2);
+  header.writeUInt16LE(count, 4);
+
+  const dirSize = 16;
+  const dirStart = 6;
+  const dataStart = dirStart + dirSize * count;
+  let offset = dataStart;
+  const dirs = [];
+  const blobs = [];
+
+  for (const { w, buf } of sorted) {
+    const dir = Buffer.alloc(dirSize);
+    dir.writeUInt8(w === 256 ? 0 : w, 0);
+    dir.writeUInt8(w === 256 ? 0 : w, 1);
+    dir.writeUInt8(0, 2);
+    dir.writeUInt8(0, 3);
+    dir.writeUInt16LE(1, 4);
+    dir.writeUInt16LE(32, 6);
+    dir.writeUInt32LE(buf.length, 8);
+    dir.writeUInt32LE(offset, 12);
+    dirs.push(dir);
+    blobs.push(buf);
+    offset += buf.length;
+  }
+
+  return Buffer.concat([header, ...dirs, ...blobs]);
 }
 
 function ogSvg({ title, subtitle, locale }) {
