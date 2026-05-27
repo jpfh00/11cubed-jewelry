@@ -57,3 +57,11 @@ python -m http.server 3456
 ```
 
 Abre `http://localhost:3456`
+
+## Favicon y vista previa (WhatsApp / redes)
+
+- Fuentes SVG: `web/assets/favicon.svg`, `og-card.svg`, `og-card-en.svg`
+- PNG/JPEG generados: `npm run generate-assets` dentro de `web/scripts`
+- Meta Open Graph en `index.html` / `index-en.html` (URL absoluta `https://elevencubed.shop/assets/og-image.jpg`)
+
+Si WhatsApp sigue mostrando la imagen antigua, purga caché en [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) con la URL del sitio.

@@ -1,0 +1,11 @@
+{
+  "name": "11³ — Alta joyería",
+  "short_name": "11³",
+  "icons": [
+    { "src": "assets/favicon-48.png", "sizes": "48x48", "type": "image/png" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "theme_color": "#010102",
+  "background_color": "#010102",
+  "display": "standalone"
+}
