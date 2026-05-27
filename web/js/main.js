@@ -23,9 +23,9 @@
       cartEmpty: "Tu bolsa está vacía.",
       numberLocale: "es-MX",
       chatbotReplies: [
-        "Podemos curar una selección privada según perfil de colección, rango y ocasión.",
-        "Nuestra mesa trabaja únicamente gemas certificadas y piezas de disponibilidad limitada.",
-        "Si lo prefieres, coordinamos una consulta privada para presentar opciones en detalle.",
+        "Con gusto preparamos una selección pensada para usted — según la pieza, la ocasión y el gesto que desea dejar.",
+        "Cada diamante y cada esmeralda llega certificada; cada diseño, en edición muy limitada.",
+        "Si lo desea, reservamos un momento privado con la maison para mostrarle las piezas con calma.",
       ],
     },
     en: {
@@ -39,9 +39,9 @@
       cartEmpty: "Your bag is empty.",
       numberLocale: "en-US",
       chatbotReplies: [
-        "We can curate a private selection based on collection profile, range, and occasion.",
-        "Our desk works exclusively with certified gems and limited-availability pieces.",
-        "If you prefer, we can arrange a private consultation to present options in detail.",
+        "We would be delighted to prepare a selection curated for you — the piece, the occasion, and the gesture you wish to leave behind.",
+        "Every diamond and emerald arrives certified; every design, in a very limited edition.",
+        "If you wish, we can reserve a private moment with the maison to present the pieces at your pace.",
       ],
     },
     fr: {
@@ -55,9 +55,9 @@
       cartEmpty: "Votre panier est vide.",
       numberLocale: "fr-FR",
       chatbotReplies: [
-        "Nous pouvons composer une sélection privée selon votre profil de collection, budget et occasion.",
-        "Notre desk ne travaille qu'avec des gemmes certifiées et des pièces en disponibilité limitée.",
-        "Si vous le souhaitez, nous organisons une consultation privée pour présenter les options en détail.",
+        "Nous serons ravis de préparer une sélection pensée pour vous — la pièce, l'occasion et le geste que vous souhaitez laisser.",
+        "Chaque diamant et chaque émeraude arrive certifié ; chaque design, en édition très limitée.",
+        "Si vous le souhaitez, nous réservons un moment privé avec la maison pour vous présenter les pièces en toute sérénité.",
       ],
     },
   };
