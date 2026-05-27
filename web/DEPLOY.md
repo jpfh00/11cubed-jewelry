@@ -64,4 +64,10 @@ Abre `http://localhost:3456`
 - PNG/JPEG generados: `npm run generate-assets` dentro de `web/scripts`
 - Meta Open Graph en `index.html` / `index-en.html` (URL absoluta `https://elevencubed.shop/assets/og-image.jpg`)
 
-Si WhatsApp sigue mostrando la imagen antigua, purga caché en [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) con la URL del sitio.
+Imagen OG en la raíz del sitio (sin query string): `https://elevencubed.shop/og-image.jpg`
+
+Si WhatsApp sigue sin imagen:
+
+1. Abre [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/), pega `https://elevencubed.shop/` y pulsa **Depurar** / **Scrape Again**.
+2. Al compartir en WhatsApp, usa una URL “nueva” para forzar recache: `https://elevencubed.shop/?v=3` (el `?v=` va en la página, no en la imagen).
+3. Comprueba que la imagen abre en el navegador: [og-image.jpg](https://elevencubed.shop/og-image.jpg)

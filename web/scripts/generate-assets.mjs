@@ -7,11 +7,12 @@ import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const assets = join(__dirname, "..", "assets");
+const webRoot = join(__dirname, "..");
+const assets = join(webRoot, "assets");
 
 async function rasterize(svgName, outputs) {
   const svg = await readFile(join(assets, svgName));
-  for (const { file, width, height, format = "png", quality } of outputs) {
+  for (const { file, width, height, format = "png", quality, alsoRoot } of outputs) {
     let pipe = sharp(svg, { density: 320 }).resize(width, height, {
       fit: "contain",
       background: { r: 1, g: 1, b: 2, alpha: 1 },
@@ -21,8 +22,13 @@ async function rasterize(svgName, outputs) {
     } else {
       pipe = pipe.png({ compressionLevel: 9 });
     }
-    await pipe.toFile(join(assets, file));
-    console.log(`✓ ${file}`);
+    const buf = await pipe.toBuffer();
+    await writeFile(join(assets, file), buf);
+    console.log(`✓ assets/${file}`);
+    if (alsoRoot) {
+      await writeFile(join(webRoot, file), buf);
+      console.log(`✓ ${file} (site root)`);
+    }
   }
 }
 
@@ -39,7 +45,15 @@ await rasterize("og-card.svg", [
     width: 1200,
     height: 630,
     format: "jpeg",
-    quality: 90,
+    quality: 94,
+    alsoRoot: true,
+  },
+  {
+    file: "og-image.png",
+    width: 1200,
+    height: 630,
+    format: "png",
+    alsoRoot: true,
   },
 ]);
 
@@ -49,7 +63,8 @@ await rasterize("og-card-en.svg", [
     width: 1200,
     height: 630,
     format: "jpeg",
-    quality: 90,
+    quality: 94,
+    alsoRoot: true,
   },
 ]);
 
