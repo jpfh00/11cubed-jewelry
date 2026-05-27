@@ -12,11 +12,21 @@
   let time = 0;
   let pageSpan = 1;
 
-  const LAYER_CFG = [
-    { count: 520, spread: 1.05, parallax: 0.62, size: 0.06, opacity: 1.0, color: 0xe8eef8 },
-    { count: 300, spread: 0.9, parallax: 0.42, size: 0.082, opacity: 0.85, color: 0xcdd9ea },
-    { count: 140, spread: 0.72, parallax: 0.24, size: 0.11, opacity: 0.7, color: 0xaebed6 },
-  ];
+  const isMobile =
+    global.matchMedia("(max-width: 899px)").matches ||
+    global.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+  const LAYER_CFG = isMobile
+    ? [
+        { count: 100, spread: 1.05, parallax: 0.5, size: 0.05, opacity: 0.9, color: 0xe8eef8 },
+        { count: 55, spread: 0.9, parallax: 0.32, size: 0.065, opacity: 0.75, color: 0xcdd9ea },
+        { count: 28, spread: 0.72, parallax: 0.18, size: 0.085, opacity: 0.6, color: 0xaebed6 },
+      ]
+    : [
+        { count: 520, spread: 1.05, parallax: 0.62, size: 0.06, opacity: 1.0, color: 0xe8eef8 },
+        { count: 300, spread: 0.9, parallax: 0.42, size: 0.082, opacity: 0.85, color: 0xcdd9ea },
+        { count: 140, spread: 0.72, parallax: 0.24, size: 0.11, opacity: 0.7, color: 0xaebed6 },
+      ];
 
   function pageHeightWorld() {
     const h = Math.max(
@@ -123,12 +133,14 @@
         trigger: document.documentElement,
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.15,
+        scrub: isMobile ? 0.35 : 1.15,
         onUpdate: (self) => {
           scrollProgress = self.progress;
         },
       });
-      global.ScrollTrigger.addEventListener("refreshInit", rebuildLayers);
+      if (!isMobile) {
+        global.ScrollTrigger.addEventListener("refreshInit", rebuildLayers);
+      }
     } else {
       global.addEventListener(
         "scroll",
@@ -151,9 +163,10 @@
 
     layers?.forEach((layer) => {
       const p = layer.userData.parallax;
-      layer.position.y = -drift * p - scrollY * 0.00085 * p;
-      layer.position.x = Math.sin(time * 0.12 + p) * 0.08;
-      layer.rotation.z = scrollProgress * 0.35 * p + time * 0.02;
+      layer.position.y = -drift * p - scrollY * (isMobile ? 0.0004 : 0.00085) * p;
+      layer.position.x = Math.sin(time * 0.12 + p) * (isMobile ? 0.04 : 0.08);
+      layer.rotation.z =
+        scrollProgress * (isMobile ? 0.15 : 0.35) * p + time * 0.02;
       if (layer.material.uniforms) {
         layer.material.uniforms.uTime.value = time;
         layer.material.uniforms.uScroll.value = scrollProgress;
@@ -187,10 +200,12 @@
     renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
-      antialias: true,
-      powerPreference: "high-performance",
+      antialias: !isMobile,
+      powerPreference: isMobile ? "low-power" : "high-performance",
     });
-    renderer.setPixelRatio(Math.min(global.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(
+      isMobile ? 1 : Math.min(global.devicePixelRatio || 1, 2)
+    );
     renderer.setClearColor(0x010102, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 

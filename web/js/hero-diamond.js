@@ -6,6 +6,9 @@
 
   const prefersReduced =
     global.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  const isMobile =
+    global.matchMedia?.("(max-width: 899px)").matches ||
+    global.matchMedia?.("(hover: none) and (pointer: coarse)").matches;
 
   let scene, camera, renderer, diamondGroup, facetLines, sparkleLight, rafId;
   let hero, container, canvas, fab, slot;
@@ -67,7 +70,7 @@
 
   function createDiamond() {
     const group = new THREE.Group();
-    const bodyGeo = createClassicBrilliantGeometry(32);
+    const bodyGeo = createClassicBrilliantGeometry(isMobile ? 16 : 32);
 
     const body = new THREE.Mesh(
       bodyGeo,
@@ -172,9 +175,10 @@
     const startLeft = r.left;
     const startW = r.width;
     const startH = r.height;
-    const endSize = 76;
-    const endTop = global.innerHeight - 22 - endSize;
-    const endLeft = global.innerWidth - 22 - endSize;
+    const endSize = isMobile ? 62 : 76;
+    const inset = isMobile ? 14 : 22;
+    const endTop = global.innerHeight - inset - endSize;
+    const endLeft = global.innerWidth - inset - endSize;
     const eased = global.gsap ? global.gsap.parseEase("power3.inOut")(t) : t;
 
     const top = lerp(startTop, endTop, eased);
@@ -252,18 +256,51 @@
       trigger: "#hero",
       start: "top top",
       end: "bottom top",
-      scrub: 0.65,
       onUpdate: (self) => {
         scrollProgress = self.progress;
-        stickyT = Math.min(1, Math.max(0, (self.progress - 0.12) / 0.45));
-        applyMorphPosition(stickyT);
-        container.classList.toggle("is-sticky", stickyT > 0.86);
       },
     });
 
-    global.addEventListener("resize", () => {
-      applyMorphPosition(stickyT);
-    });
+    if (isMobile) {
+      global.ScrollTrigger.create({
+        trigger: "#hero",
+        start: "42% top",
+        onEnter: () => {
+          stickyT = 1;
+          container.classList.add("is-sticky");
+          applyMorphPosition(1);
+        },
+        onLeaveBack: () => {
+          stickyT = 0;
+          container.classList.remove("is-sticky");
+          placeAtSlot(true);
+        },
+      });
+    } else {
+      global.ScrollTrigger.create({
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.65,
+        onUpdate: (self) => {
+          stickyT = Math.min(1, Math.max(0, (self.progress - 0.12) / 0.45));
+          applyMorphPosition(stickyT);
+          container.classList.toggle("is-sticky", stickyT > 0.86);
+        },
+      });
+    }
+
+    global.addEventListener(
+      "resize",
+      () => {
+        if (stickyT >= 1 && container?.classList.contains("is-sticky")) {
+          applyMorphPosition(1);
+        } else {
+          placeAtSlot(true);
+        }
+      },
+      { passive: true }
+    );
   }
 
   function resizeRenderer() {
@@ -281,25 +318,27 @@
     fab = document.getElementById("chatbotFab");
     slot = document.getElementById("heroDiamondSlot");
 
-    const onPointerMove = (e) => {
-      const r = container.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      pointer.tx = x * 2;
-      pointer.ty = y * 2;
-      hoverTarget = 1;
-      container.classList.add("is-hover");
-    };
+    if (!isMobile) {
+      const onPointerMove = (e) => {
+        const r = container.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        pointer.tx = x * 2;
+        pointer.ty = y * 2;
+        hoverTarget = 1;
+        container.classList.add("is-hover");
+      };
 
-    const onPointerLeave = () => {
-      pointer.tx = 0;
-      pointer.ty = 0;
-      hoverTarget = 0;
-      container.classList.remove("is-hover");
-    };
+      const onPointerLeave = () => {
+        pointer.tx = 0;
+        pointer.ty = 0;
+        hoverTarget = 0;
+        container.classList.remove("is-hover");
+      };
 
-    container?.addEventListener("pointermove", onPointerMove);
-    container?.addEventListener("pointerleave", onPointerLeave);
+      container?.addEventListener("pointermove", onPointerMove);
+      container?.addEventListener("pointerleave", onPointerLeave);
+    }
 
     fab?.addEventListener("click", (e) => {
       if (!container.classList.contains("is-sticky")) return;
@@ -321,8 +360,10 @@
 
     hoverIntensity += (hoverTarget - hoverIntensity) * 0.08;
     const sticky = container?.classList.contains("is-sticky");
-    const energy = 1 + hoverIntensity * 0.5 + scrollProgress * 0.25;
-    orbit += (0.0095 + hoverIntensity * 0.008) * energy;
+    const energy = isMobile
+      ? 1 + scrollProgress * 0.12
+      : 1 + hoverIntensity * 0.5 + scrollProgress * 0.25;
+    orbit += (isMobile ? 0.006 : 0.0095 + hoverIntensity * 0.008) * energy;
 
     const lerpSpeed = 0.05 + hoverIntensity * 0.07;
     pointer.x += (pointer.tx - pointer.x) * lerpSpeed;
@@ -401,10 +442,12 @@
     renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
-      antialias: true,
-      powerPreference: "high-performance",
+      antialias: !isMobile,
+      powerPreference: isMobile ? "low-power" : "high-performance",
     });
-    renderer.setPixelRatio(Math.min(global.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(
+      isMobile ? 1 : Math.min(global.devicePixelRatio || 1, 2)
+    );
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
