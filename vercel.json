@@ -16,42 +16,24 @@
       ]
     },
     {
-      "source": "/og-image.jpg",
+      "source": "/og-share.jpg",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        },
-        {
-          "key": "Content-Type",
-          "value": "image/jpeg"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=86400" },
+        { "key": "Content-Type", "value": "image/jpeg" }
       ]
     },
     {
-      "source": "/og-image-en.jpg",
+      "source": "/og-share-en.jpg",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        },
-        {
-          "key": "Content-Type",
-          "value": "image/jpeg"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=86400" },
+        { "key": "Content-Type", "value": "image/jpeg" }
       ]
     },
     {
-      "source": "/og-image-fr.jpg",
+      "source": "/og-share-fr.jpg",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        },
-        {
-          "key": "Content-Type",
-          "value": "image/jpeg"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=86400" },
+        { "key": "Content-Type", "value": "image/jpeg" }
       ]
     }
   ]

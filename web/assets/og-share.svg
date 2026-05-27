@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020203"/>
+      <stop offset="45%" stop-color="#010102"/>
+      <stop offset="100%" stop-color="#050608"/>
+    </linearGradient>
+    <radialGradient id="emeraldGlow" cx="28%" cy="42%" r="48%">
+      <stop offset="0%" stop-color="#1a8f5c" stop-opacity="0.35"/>
+      <stop offset="55%" stop-color="#0d6b48" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#010102" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="goldGlow" cx="88%" cy="78%" r="42%">
+      <stop offset="0%" stop-color="#c9a962" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#010102" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a962" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#c9a962" stop-opacity="0.85"/>
+      <stop offset="80%" stop-color="#c9a962" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#c9a962" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="titleGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0e6cc"/>
+      <stop offset="100%" stop-color="#c9a962"/>
+    </linearGradient>
+    <filter id="diamondShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="18" flood-color="#4ecf96" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#emeraldGlow)"/>
+  <rect width="1200" height="630" fill="url(#goldGlow)"/>
+
+  <!-- fine frame -->
+  <rect x="56" y="56" width="1088" height="518" fill="none" stroke="rgba(201,169,98,0.22)" stroke-width="1"/>
+  <rect x="72" y="72" width="1056" height="486" fill="none" stroke="rgba(26,143,92,0.15)" stroke-width="1"/>
+  <line x1="72" y1="558" x2="1128" y2="558" stroke="url(#goldLine)" stroke-width="1"/>
+
+  <!-- diamond icon (white on dark) -->
+  <image href="diamond-icon-light.png" x="118" y="155" width="220" height="220" filter="url(#diamondShadow)" preserveAspectRatio="xMidYMid meet"/>
+
+  <!-- brand block -->
+  <text x="420" y="268" font-family="Georgia, 'Times New Roman', serif" font-size="132" fill="#f5f8f7" letter-spacing="14">11</text>
+  <text x="548" y="218" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#4ecf96">&#179;</text>
+
+  <text x="420" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="url(#titleGold)" letter-spacing="0.38em">ALTA JOYER&#205;A</text>
+  <text x="420" y="378" font-family="Georgia, 'Times New Roman', serif" font-size="19" fill="#9aab9e" letter-spacing="0.32em">DISE&#209;O A MEDIDA</text>
+
+  <text x="420" y="548" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="rgba(78,207,150,0.75)" letter-spacing="0.42em">DIAMANTES · ESMERALDAS · ALTA RELOJERÍA</text>
+
+  <!-- accent jewel line -->
+  <line x1="420" y1="408" x2="720" y2="408" stroke="#4ecf96" stroke-opacity="0.45" stroke-width="1"/>
+</svg>
