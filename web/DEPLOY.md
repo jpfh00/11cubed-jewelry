@@ -17,17 +17,31 @@ git push -u origin main
 
 ## 2. Vercel (una vez)
 
-**Importante:** si importas desde GitHub, deja **Root Directory vacío** (`.`).  
-El `vercel.json` en la raíz del repo ya apunta a `web/` como sitio.
+### Error: `Root Directory "tree/main/web" does not exist`
 
-Opción A — Dashboard:
+Eso pasa si pegaste la URL de GitHub en Root Directory. **No uses** `tree/main/web`.
 
-1. [vercel.com/new](https://vercel.com/new) → Import `11cubed-jewelry`
-2. **Root Directory:** vacío (no pongas `web` si ya usas el `vercel.json` raíz)
-3. Framework Preset: **Other**
+**Corrección en Vercel:**
+
+1. [vercel.com](https://vercel.com) → tu proyecto → **Settings** → **General**
+2. **Root Directory** → **Edit**
+3. Elige **una** de estas dos opciones (no mezcles):
+
+| Opción | Root Directory | Notas |
+|--------|----------------|--------|
+| **A (recomendada)** | *(vacío)* | Usa el `vercel.json` en la raíz del repo (`outputDirectory: "web"`) |
+| **B** | `web` | Solo la palabra `web`, sin barras ni `tree/main` |
+
+4. **Save** → **Deployments** → **Redeploy** el último deploy
+
+### Deploy desde dashboard
+
+1. Import `jpfh00/11cubed-jewelry`
+2. Root Directory según tabla arriba
+3. Framework: **Other**
 4. Deploy
 
-Opción B — CLI:
+### Deploy desde CLI
 
 ```powershell
 cd "C:\Users\jeanp\Desktop\Projects\11³"
