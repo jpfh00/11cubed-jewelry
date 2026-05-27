@@ -1,0 +1,44 @@
+{
+  "skill_name": "11cubed-mastermind",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Somos 11³, joyería exótica y exclusiva. ¿Deberíamos lanzar con tienda online abierta o solo citas privadas? Estamos en fase de planificación.",
+      "expected_output": "Structured strategic brief with 2-3 options, models from luxury jewelry brands, funnel-hacker lens (waitlist/VIP), clear recommendation favoring exclusivity-first if ultra-luxury, no code/build suggestions",
+      "files": [],
+      "expectations": [
+        "References comparable luxury jewelry go-to-market models",
+        "Presents at least two strategic options with trade-offs",
+        "Includes a clear recommendation, not only a list of ideas",
+        "Respects planning-only mode (no website implementation)",
+        "Mentions 11³ exotic/exclusive positioning"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Quiero modelar cómo Russell Brunson haría el lanzamiento de la primera colección de 11³ — pero para joyería de lujo, no infoproductos.",
+      "expected_output": "Funnel map adapted for jewelry: dream customer, hook-story-offer, value ladder, modeled reference brands, metrics — Brunson structure without tacky info-product tactics",
+      "files": [],
+      "expectations": [
+        "Uses model-what-works / funnel hacking framing",
+        "Includes Hook-Story-Offer or value ladder adapted to jewelry",
+        "Names at least one real-world brand or launch pattern to model",
+        "Avoids generic discount-heavy mass market tactics",
+        "Provides actionable next steps for 11³"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "¿Cómo posicionamos el nombre 11³? Quiero que evoque rareza y exclusividad pero no sé qué historia contar.",
+      "expected_output": "Brand architecture advice: 3 narrative directions for 11³ name, recommendation, what to test with customers, ties to exotic exclusive jewelry positioning",
+      "files": [],
+      "expectations": [
+        "Offers multiple narrative directions (not just one slogan)",
+        "Connects name 11³ to rarity/exclusivity conceptually",
+        "Includes recommendation with rationale",
+        "Suggests validation steps before locking story",
+        "Tone matches luxury brand strategist, not generic marketing"
+      ]
+    }
+  ]
+}
