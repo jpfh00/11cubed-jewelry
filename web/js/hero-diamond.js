@@ -18,6 +18,12 @@
   let orbit = 0;
   let hoverIntensity = 0;
   let hoverTarget = 0;
+  let touchPulse = 0;
+  let touchOrbit = 0;
+  let touchTiltX = 0;
+  let touchTiltY = 0;
+  let isTouching = false;
+  let lastPointer = null;
   let time = 0;
   let morphTween = null;
 
@@ -313,32 +319,84 @@
     camera.updateProjectionMatrix();
   }
 
+  function updatePointerFromEvent(e) {
+    const r = container.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    const gain = isMobile ? 1.35 : 2;
+    pointer.tx = Math.max(-1, Math.min(1, x * gain));
+    pointer.ty = Math.max(-1, Math.min(1, y * gain));
+  }
+
+  function bindPointerInteraction() {
+    if (isMobile) {
+      const onPointerDown = (e) => {
+        if (container.classList.contains("is-sticky")) return;
+
+        isTouching = true;
+        hoverTarget = 1;
+        touchPulse = 1;
+        lastPointer = { x: e.clientX, y: e.clientY };
+        updatePointerFromEvent(e);
+        container.classList.add("is-touch");
+      };
+
+      const onPointerMove = (e) => {
+        if (!isTouching || container.classList.contains("is-sticky")) return;
+
+        updatePointerFromEvent(e);
+
+        if (lastPointer) {
+          const dx = e.clientX - lastPointer.x;
+          const dy = e.clientY - lastPointer.y;
+          touchOrbit += dx * 0.0032;
+          touchTiltY += dx * 0.0014;
+          touchTiltX += dy * 0.0014;
+        }
+        lastPointer = { x: e.clientX, y: e.clientY };
+      };
+
+      const endPointer = () => {
+        if (!isTouching) return;
+        isTouching = false;
+        hoverTarget = 0;
+        lastPointer = null;
+        container.classList.remove("is-touch");
+      };
+
+      container?.addEventListener("pointerdown", onPointerDown, { passive: true });
+      container?.addEventListener("pointermove", onPointerMove, { passive: true });
+      container?.addEventListener("pointerup", endPointer, { passive: true });
+      container?.addEventListener("pointercancel", endPointer, { passive: true });
+      container?.addEventListener("pointerleave", endPointer);
+      return;
+    }
+
+    const onPointerMove = (e) => {
+      if (container.classList.contains("is-sticky")) return;
+      updatePointerFromEvent(e);
+      hoverTarget = 1;
+      container.classList.add("is-hover");
+    };
+
+    const onPointerLeave = () => {
+      pointer.tx = 0;
+      pointer.ty = 0;
+      hoverTarget = 0;
+      container.classList.remove("is-hover");
+    };
+
+    container?.addEventListener("pointermove", onPointerMove);
+    container?.addEventListener("pointerleave", onPointerLeave);
+  }
+
   function bindEvents() {
     hero = document.getElementById("hero");
     fab = document.getElementById("chatbotFab");
     slot = document.getElementById("heroDiamondSlot");
 
-    if (!isMobile) {
-      const onPointerMove = (e) => {
-        const r = container.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        pointer.tx = x * 2;
-        pointer.ty = y * 2;
-        hoverTarget = 1;
-        container.classList.add("is-hover");
-      };
-
-      const onPointerLeave = () => {
-        pointer.tx = 0;
-        pointer.ty = 0;
-        hoverTarget = 0;
-        container.classList.remove("is-hover");
-      };
-
-      container?.addEventListener("pointermove", onPointerMove);
-      container?.addEventListener("pointerleave", onPointerLeave);
-    }
+    bindPointerInteraction();
 
     fab?.addEventListener("click", (e) => {
       if (!container.classList.contains("is-sticky")) return;
@@ -358,20 +416,27 @@
     rafId = global.requestAnimationFrame(animate);
     time += 0.016;
 
-    hoverIntensity += (hoverTarget - hoverIntensity) * 0.08;
+    hoverIntensity += (hoverTarget - hoverIntensity) * (isMobile ? 0.14 : 0.08);
+    touchPulse *= isTouching ? 0.9 : 0.88;
+    if (!isTouching) {
+      touchOrbit *= 0.96;
+      touchTiltX *= 0.9;
+      touchTiltY *= 0.9;
+    }
+
     const sticky = container?.classList.contains("is-sticky");
     const energy = isMobile
-      ? 1 + scrollProgress * 0.2
+      ? 1 + scrollProgress * 0.2 + hoverIntensity * 0.25
       : 1 + hoverIntensity * 0.5 + scrollProgress * 0.25;
     orbit += (isMobile ? 0.008 : 0.0095 + hoverIntensity * 0.008) * energy;
 
-    const lerpSpeed = 0.05 + hoverIntensity * 0.07;
+    const lerpSpeed = isMobile ? 0.12 + hoverIntensity * 0.08 : 0.05 + hoverIntensity * 0.07;
     pointer.x += (pointer.tx - pointer.x) * lerpSpeed;
     pointer.y += (pointer.ty - pointer.y) * lerpSpeed;
 
     const breathe =
       1 + Math.sin(time * 1.65) * 0.028 + Math.sin(time * 3.4) * 0.012;
-    const snap = 1 + hoverIntensity * 0.08;
+    const snap = 1 + hoverIntensity * 0.08 + touchPulse * 0.05;
     const baseScale = lerp(DIAMOND_HERO_SCALE, DIAMOND_STICKY_SCALE, stickyT);
 
     if (diamondGroup) {
@@ -381,12 +446,22 @@
         Math.sin(time * 0.38) * 0.11 + Math.cos(time * 0.27) * 0.05;
       const swayY = Math.sin(time * 0.29) * 0.1;
 
+      const touchRotGain = isMobile ? 0.14 : 0.1;
       diamondGroup.rotation.x =
-        POSE.x + swayX - pointer.y * 0.1 - scrollProgress * 0.04;
+        POSE.x +
+        swayX -
+        pointer.y * touchRotGain -
+        touchTiltX +
+        scrollProgress * 0.04;
       diamondGroup.rotation.y =
-        POSE.y + orbit + swayY + pointer.x * (sticky ? 0.14 : 0.24);
+        POSE.y +
+        orbit +
+        touchOrbit +
+        swayY +
+        pointer.x * (sticky ? 0.14 : isMobile ? 0.2 : 0.24) +
+        touchTiltY * 0.5;
       diamondGroup.rotation.z =
-        POSE.z + swayZ + pointer.x * 0.1;
+        POSE.z + swayZ + pointer.x * (isMobile ? 0.12 : 0.1);
 
       const floatAmp = sticky ? 0.04 : 0.1;
       diamondGroup.position.x =
@@ -410,12 +485,18 @@
 
     if (sparkleLight) {
       sparkleLight.intensity =
-        0.75 + Math.sin(time * 4.2) * 0.2 + hoverIntensity * 0.4;
+        0.75 +
+        Math.sin(time * 4.2) * 0.2 +
+        hoverIntensity * (isMobile ? 0.28 : 0.4) +
+        touchPulse * 0.15;
     }
 
     if (facetLines?.material) {
       facetLines.material.opacity =
-        0.42 + Math.sin(time * 3.8) * 0.06 + hoverIntensity * 0.1;
+        0.42 +
+        Math.sin(time * 3.8) * 0.06 +
+        hoverIntensity * 0.1 +
+        touchPulse * 0.08;
     }
 
     renderer?.render(scene, camera);

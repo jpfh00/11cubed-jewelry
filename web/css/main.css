@@ -660,13 +660,29 @@ body.is-loaded {
 
 @media (max-width: 899px) {
   .hero__diamond:not(.is-sticky) .chatbot-fab {
-    pointer-events: none;
-    cursor: default;
+    pointer-events: auto;
+    cursor: grab;
+    touch-action: pan-y;
   }
 
   .hero__diamond.is-sticky .chatbot-fab {
     pointer-events: auto;
     cursor: pointer;
+  }
+
+  .hero__diamond.is-touch .chatbot-fab {
+    cursor: grabbing;
+  }
+
+  .hero__diamond.is-touch:not(.is-sticky) .hero__diamond-glow {
+    opacity: 0.72;
+    transform: scale(1.08);
+  }
+
+  .hero__diamond.is-touch:not(.is-sticky) canvas {
+    filter:
+      drop-shadow(0 0 22px rgba(126, 232, 226, 0.2))
+      drop-shadow(0 24px 48px rgba(0, 0, 0, 0.5));
   }
 }
 
